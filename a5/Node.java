@@ -1,5 +1,7 @@
 package a5;
 
+import java.util.List;
+
 public interface Node {
 
      /* You will include the method signatures (return type, name, and arg types) for any node methods you
@@ -15,5 +17,12 @@ public interface Node {
       * @return the name of the node
       */
      String getName();
+     List<Edge> getCollection();
+     boolean edgePresent(String dest);
+     int getInDegree();
+     int incInDegree();
+     int decInDegree();
+     void addEdge(Edge idx);
+     boolean deleteEdge(String dest);
 
 }
