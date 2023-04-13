@@ -1,6 +1,7 @@
 package a5;
 
 import java.util.List;
+import java.util.*;
 
 public interface Node {
 

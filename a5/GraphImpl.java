@@ -46,17 +46,18 @@ public class GraphImpl implements Graph {
     @Override
     public boolean deleteNode(String name) {
         //Hint: Do you need to remove edges when you delete a node?
-        if (!nodes.containsKey(name)) {
+        if (!(nodes.containsKey(name))) {
             return false;
         }
-        nodes.entrySet().removeIf(entry -> {
-            Node node = entry.getValue();
-            if (node.getName().equals(name)) {
-                return true;
+        for (Node n : nodes.values()) {
+            for (Edge idx : n.getCollection()) {
+                if (idx.getDest().getName().equals(name)) {
+                    deleteEdge(idx.getSrc().getName(), idx.getDest().getName());
+                }
             }
-            return node.getCollection().removeIf(edge -> edge.getDest().getName().equals(name));
-        });
-        return true;
+        }
+        nodes.remove(name);
+        return true;  //Dummy return value.  Remove when you implement!
     }
 
     @Override
@@ -98,8 +99,8 @@ public class GraphImpl implements Graph {
             }
             seen.add(nextNode.getName());
             stack.push(nextNode.getName());
-            for (Edge e : nextNode.getCollection()) {
-                e.getDest().decInDegree();
+            for (Edge idx : nextNode.getCollection()) {
+                idx.getDest().decInDegree();
 
             }
         }
