@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.*;
 
 public class GraphImpl implements Graph {
-    Map<String, Node> nodes; //Do not delete.  Use this field to store your nodes.
+    Map<String, Node> nodes; //Do not delete.   Use this field to store your nodes.
                              // key: name of node. value: a5.Node object associated with name
     int numEdges;
     public GraphImpl() {

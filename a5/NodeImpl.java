@@ -11,7 +11,7 @@ public class NodeImpl implements Node {
 
     /*Hint: Make sure you update the Node interface in Node.java when you add a new method implementation
     in NodeImpl.java, and vice-versa.  getName() in Node.java and NodeImpl.java is an example.  Also, files in
-    previous homeworks (e.g., BST.java and BSTImpl.java in homework 3) are good examples of
+    previous homeworks (e.g. , BST.java and BSTImpl.java in homework 3) are good examples of
     interfaces and their implementations.
      */
 

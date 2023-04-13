@@ -48,7 +48,7 @@ public interface Graph {
 
     /**
      * reports how many edges are in the graph
-     * @return - integer 0 or greater that is the number of edges in the graph
+     * @return -  integer 0 or greater that is the number of edges in the graph
      */
     int numEdges();
 
