@@ -5,14 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class NodeImpl implements Node {
-    private String name;
-    private List<Edge> edgeCollection;
-    private int inDegree;
-    public NodeImpl(String name) {
-        this.name = name;
-        this.edgeCollection = new ArrayList<>();
-        this.inDegree = 0;
-    }
 
     /* You will include the method signatures (return type, name, and arg types) for any node methods you
     need in this file. */
@@ -25,36 +17,40 @@ public class NodeImpl implements Node {
 
     /*Also, any node fields you want to add for the object should go in this file.  */
 
+    private String name;
+    private List<Edge> edgeCollection;
+    private int inDegree;
+    public NodeImpl(String name) {
+        this.name = name;
+        this.edgeCollection = new ArrayList<>();
+        this.inDegree = 0;
+    }
     @Override
     public String getName() {
-
-        return this.name;  //Dummy return value.  Remove when you implement!
+        return this.name;
     }
-    public List<Edge> getCollection(){
+    public List<Edge> getCollection() {
+
         return this.edgeCollection;
     }
     public boolean edgePresent(String dest) {
-        for  (Edge idx : edgeCollection) {
-            if (idx.getDest().getName().equals(dest)) {
+        for (Edge e : edgeCollection) {
+            if (e.getDest().getName().equals(dest)) {
                 return true;
             }
         }
         return false;
     }
     public int getInDegree() {
-
         return this.inDegree;
     }
     public int incInDegree() {
-
         return inDegree++;
     }
     public int decInDegree() {
-
         return inDegree--;
     }
     public void addEdge(Edge idx) {
-
         edgeCollection.add(idx);
     }
     public boolean deleteEdge(String dest) {

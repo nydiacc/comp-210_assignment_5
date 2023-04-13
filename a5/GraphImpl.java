@@ -14,49 +14,49 @@ public class GraphImpl implements Graph {
     }
 
     @Override
-    public boolean addNode(String name) {
-        if (nodes.containsKey(name)) {
+    public boolean addNode(String label) {
+        if (nodes.containsKey(label)) {
             return false;  //Dummy return value.  Remove when you implement!
         }
-        Node n = new NodeImpl(name);
-        nodes.put(name, n);
+        Node n = new NodeImpl(label);
+        nodes.put(label, n);
         return true;
     }
     @Override
     public boolean addEdge(String src, String dest, double weight) {
         if (weight < 0) {
-            return false;  //Dummy return value.  Remove when you implement!
+            return false;
         }
-        if (!(nodes.containsKey(src)) || !(nodes.containsKey(dest))) {
+        if (!(nodes.containsKey(src)) || !(nodes.containsKey(dest))) { // source and destination don't exist
             return false;
         }
         Node one = nodes.get(src);
         Node two = nodes.get(dest);
         Edge idx = new EdgeImpl(one, two, weight);
-        if (one.edgePresent(dest)) {
+        if (one.edgePresent(dest)) { // edge is present between a and dest
             return false;
         }
         one.addEdge(idx);
         two.incInDegree();
         numEdges++;
-        return true;
-        }
+        return true;  //Dummy return value.  Remove when you implement!
+    }
 
 
     @Override
-    public boolean deleteNode(String name) {
+    public boolean deleteNode(String label) {
         //Hint: Do you need to remove edges when you delete a node?
-        if (!(nodes.containsKey(name))) {
+        if (!(nodes.containsKey(label))) {
             return false;
         }
         for (Node n : nodes.values()) {
             for (Edge idx : n.getCollection()) {
-                if (idx.getDest().getName().equals(name)) {
+                if (idx.getDest().getName().equals(label)) {
                     deleteEdge(idx.getSrc().getName(), idx.getDest().getName());
                 }
             }
         }
-        nodes.remove(name);
+        nodes.remove(label);
         return true;  //Dummy return value.  Remove when you implement!
     }
 
@@ -75,7 +75,6 @@ public class GraphImpl implements Graph {
         } else {
             return false;  //Dummy return value.  Remove when you implement!
         }
-
     }
 
     @Override
@@ -99,8 +98,8 @@ public class GraphImpl implements Graph {
             }
             seen.add(nextNode.getName());
             stack.push(nextNode.getName());
-            for (Edge idx : nextNode.getCollection()) {
-                idx.getDest().decInDegree();
+            for (Edge e : nextNode.getCollection()) {
+                e.getDest().decInDegree();
 
             }
         }
@@ -111,12 +110,13 @@ public class GraphImpl implements Graph {
         for (Map.Entry<String,Node> entry : nodes.entrySet()) {
             if (entry.getValue().getInDegree() == 0 && !seen.contains(entry.getKey())) {
                 if (entry.getValue().getCollection().size() == 0) {
-                    one = entry.getValue();
+                    one= entry.getValue();
                 } else {
                     return entry.getValue();
                 }
             }
         }
         return one;
+
     }
 }

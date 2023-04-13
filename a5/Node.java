@@ -1,7 +1,7 @@
 package a5;
 
+
 import java.util.List;
-import java.util.*;
 
 public interface Node {
 
@@ -14,8 +14,8 @@ public interface Node {
     interfaces and their implementations.
      */
 
-     /**
-      * @return the name of the node
+     /*
+       @return the name of the node
       */
      String getName();
      List<Edge> getCollection();
