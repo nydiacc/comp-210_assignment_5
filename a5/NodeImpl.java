@@ -6,6 +6,7 @@ import java.util.List;
 public class NodeImpl implements Node {
 
 
+
     private String name;
     private List<Edge> edgeCollection;
     private int inDegree;
