@@ -8,3 +8,4 @@ public interface Edge {
     double getWeight();
 
 }
+
