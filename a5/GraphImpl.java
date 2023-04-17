@@ -1,13 +1,12 @@
 package a5;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.*;
 
 public class GraphImpl implements Graph {
-    Map<String, Node> nodes; //Do not delete.   Use this field to store your nodes.
-                             // key: name of node. value: a5.Node object associated with name
+    Map<String, Node> nodes; //Do not delete.  Use this field to store your nodes.
+    // key: name of node. value: a5.Node object associated with name
     int numEdges;
+
     public GraphImpl() {
         nodes = new HashMap<>();
         numEdges = 0;
@@ -16,48 +15,48 @@ public class GraphImpl implements Graph {
     @Override
     public boolean addNode(String label) {
         if (nodes.containsKey(label)) {
-            return false;  //Dummy return value.  Remove when you implement!
+            return false;
         }
-        Node n = new NodeImpl(label);
-        nodes.put(label, n);
+        Node temp = new NodeImpl(label);
+        nodes.put(label, temp);
         return true;
     }
+
     @Override
     public boolean addEdge(String src, String dest, double weight) {
         if (weight < 0) {
             return false;
         }
-        if (!(nodes.containsKey(src)) || !(nodes.containsKey(dest))) { // source and destination don't exist
+        if (!(nodes.containsKey(src)) || !(nodes.containsKey(dest))) {
             return false;
         }
         Node one = nodes.get(src);
         Node two = nodes.get(dest);
         Edge idx = new EdgeImpl(one, two, weight);
-        if (one.edgePresent(dest)) { // edge is present between a and dest
+        if (one.edgePresent(dest)) {
             return false;
         }
         one.addEdge(idx);
         two.incInDegree();
         numEdges++;
-        return true;  //Dummy return value.  Remove when you implement!
+        return true;
     }
 
-
     @Override
-    public boolean deleteNode(String label) {
-        //Hint: Do you need to remove edges when you delete a node?
-        if (!(nodes.containsKey(label))) {
+    public boolean deleteNode(String name) {
+
+        if (!(nodes.containsKey(name))) {
             return false;
         }
-        for (Node n : nodes.values()) {
-            for (Edge idx : n.getCollection()) {
-                if (idx.getDest().getName().equals(label)) {
+        for (Node temp : nodes.values()) {
+            for (Edge idx : temp.getCollection()) {
+                if (idx.getDest().getName().equals(name)) {
                     deleteEdge(idx.getSrc().getName(), idx.getDest().getName());
                 }
             }
         }
-        nodes.remove(label);
-        return true;  //Dummy return value.  Remove when you implement!
+        nodes.remove(name);
+        return true;
     }
 
     @Override
@@ -73,7 +72,7 @@ public class GraphImpl implements Graph {
             two.decInDegree();
             return true;
         } else {
-            return false;  //Dummy return value.  Remove when you implement!
+            return false;
         }
     }
 
@@ -86,7 +85,7 @@ public class GraphImpl implements Graph {
     public int numEdges() {
         return numEdges;  //Dummy return value.  Remove when you implement!
     }
-    
+
     @Override
     public Stack<String> topoSort() {
         Stack<String> stack = new Stack<String>();
@@ -98,25 +97,25 @@ public class GraphImpl implements Graph {
             }
             seen.add(nextNode.getName());
             stack.push(nextNode.getName());
-            for (Edge e : nextNode.getCollection()) {
-                e.getDest().decInDegree();
+            for (Edge idx : nextNode.getCollection()) {
+                idx.getDest().decInDegree();
 
             }
         }
         return stack;
     }
-    public Node findNext (Set<String> seen) {
-        Node one = null;
+    @Override
+    public Node findNext(Set<String> seen) {
+        Node temp = null;
         for (Map.Entry<String,Node> entry : nodes.entrySet()) {
             if (entry.getValue().getInDegree() == 0 && !seen.contains(entry.getKey())) {
                 if (entry.getValue().getCollection().size() == 0) {
-                    one= entry.getValue();
+                    temp = entry.getValue();
                 } else {
                     return entry.getValue();
                 }
             }
         }
-        return one;
-
+        return temp;
     }
 }

@@ -1,6 +1,6 @@
 package a5;
 
-import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 public interface Graph {
@@ -62,4 +62,5 @@ public interface Graph {
      * @return Stack of string elements representing the topological sort in order.
      */
     Stack<String> topoSort();
+    Node findNext (Set<String> seen);
 }
